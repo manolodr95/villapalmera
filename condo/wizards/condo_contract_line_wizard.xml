@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  © 2024 ISJO TECHNOLOGY, SRL (Daniel Diaz <daniel.diaz@isjo-technology.com>)
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <data>
+
+        <record id="condo_contract_patial_payment_wizard" model="ir.ui.view">
+            <field name="name">condo.contract.line.wizard.form</field>
+            <field name="model">condo.contract.line.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Payment Schedule">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="amount" />
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                          <button name="action_generate_partial_payment" type="object" class="btn-primary" string="Make Payment"  />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_patial_payment" model="ir.actions.act_window">
+            <field name="name">Partial Payment</field>
+            <field name="res_model">condo.contract.line.wizard</field>
+            <field name="view_mode">form</field>
+             <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

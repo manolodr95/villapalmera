@@ -1,0 +1,1096 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* condo
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0-20240912\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-09-19 13:50+0000\n"
+"PO-Revision-Date: 2024-09-19 09:53-0400\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_DO\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.2\n"
+
+#. module: condo
+#: model:ir.actions.report,print_report_name:condo.action_report_condo_charge
+msgid "'Contract Report'"
+msgstr "'Informe de contrato'"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.res_config_settings_view_form
+msgid ""
+"<span class=\"o_form_label\">Default Charge Journal</span>\n"
+"                                    <span class=\"fa fa-lg fa-building-o\" title=\"Make sure that default credit and debit account is configured on the journal\" aria-label=\"Make sure that default credit and debit account is configured on the journal\" role=\"img\"/>"
+msgstr ""
+"<span class=\"o_form_label\">Diario de cargos predeterminado</span>\n"
+"                                    <span class=\"fa fa-lg fa-building-o\" title=\"Make sure that default credit and debit account is configured on the journal\" aria-label=\"Make sure that default credit and debit account is configured on the journal\" role=\"img\"/>"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.res_config_settings_view_form
+msgid ""
+"<span class=\"o_form_label\">Default Journal</span>\n"
+"                                    <span class=\"fa fa-lg fa-building-o\" title=\"Make sure that default credit and debit account is configured on the journal\" aria-label=\"Make sure that default credit and debit account is configured on the journal\" role=\"img\"/>"
+msgstr ""
+"<span class=\"o_form_label\">Diario predeterminado</span>\n"
+"                                    <span class=\"fa fa-lg fa-building-o\" title=\"Make sure that default credit and debit account is configured on the journal\" aria-label=\"Make sure that default credit and debit account is configured on the journal\" role=\"img\"/>"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.res_config_settings_view_form
+msgid ""
+"<span class=\"o_form_label\">Default account Other Income</span>\n"
+"                                <span class=\"fa fa-lg fa-building-o\" title=\"select the account for other income in the payment\" aria-label=\"select the account for other income in the payment.\" role=\"img\"/>"
+msgstr ""
+"<span class=\"o_form_label\">Cuenta predeterminada Otros ingresos</span>\n"
+"                                <span class=\"fa fa-lg fa-building-o\" title=\"select the account for other income in the payment\" aria-label=\"select the account for other income in the payment.\" role=\"img\"/>"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.report_condo_charge
+msgid "<span style=\"text-align:center;font-weight: bold;padding:50px;\">Scheduled Payment</span>"
+msgstr "<span style=\"text-align:center;font-weight: bold;padding:50px;\">Pago programado</span>"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.report_ticket_fee
+msgid "<strong>Cliente:</strong>"
+msgstr "<strong>Cliente:</strong>"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.report_ticket_fee
+msgid "<strong>Fecha:</strong>"
+msgstr "<strong>Fecha:</strong>"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.report_ticket_fee
+msgid "<strong>IVA:</strong>"
+msgstr "<strong>Impuesto:</strong>"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.report_ticket_fee
+msgid "<strong>Ticket #:</strong>"
+msgstr "<strong>Recibo #:</strong>"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.report_ticket_fee
+msgid "<strong>Total a Pagar:</strong>"
+msgstr "<strong>Total a Pagar:</strong>"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.report_ticket_fee
+msgid "<strong>Total:</strong>"
+msgstr "<strong>Total:</strong>"
+
+#. module: condo
+#: model_terms:ir.actions.act_window,help:condo.view_report_pay_invoice_action
+msgid "A partir de este informe, puede tener una visión general de los pagos realizados a facturas de clientes. La herramienta de búsqueda también se puede utilizar para personalizar sus informes de facturas y, por lo tanto, adaptar este análisis a sus necesidades.."
+msgstr "A partir de este informe, puede tener una visión general de los pagos realizados a facturas de clientes. La herramienta de búsqueda también se puede utilizar para personalizar sus informes de facturas y, por lo tanto, adaptar este análisis a sus necesidades.."
+
+#. module: condo
+#: model:ir.module.category,name:condo.module_charge_amount
+msgid "Access adding Cuote"
+msgstr "Permiso para añadir Cuotas"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__message_needaction
+msgid "Action Needed"
+msgstr "Acción necesaria"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Decoración de excepción de actividad"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__activity_state
+msgid "Activity State"
+msgstr "Estado de actividad"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Icono de tipo de actividad"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_charge_history__amount_status model:ir.model.fields,field_description:condo.field_condo_contract__amount model:ir.model.fields,field_description:condo.field_condo_contract_line__amount_due
+#: model:ir.model.fields,field_description:condo.field_condo_contract_line_wizard__amount
+msgid "Amount"
+msgstr "Monto"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.report_condo_charge
+msgid "Amount Due"
+msgstr "Monto Vencido"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__amount_paid
+msgid "Amount Paid"
+msgstr "Monto Pagado"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.report_condo_charge
+msgid "Amount Subtotal"
+msgstr "Subtotal"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__amount_total
+msgid "Amount Total"
+msgstr "Total"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__apt_number
+msgid "Apartment Number"
+msgstr "Número de apartamento"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.view_wizard_apply_late_fee_form
+msgid "Apply"
+msgstr "Aplicar"
+
+#. module: condo
+#: model:ir.actions.act_window,name:condo.action_apply_late_fee_wizard model:ir.model,name:condo.model_wizard_apply_late_fee model_terms:ir.ui.view,arch_db:condo.view_wizard_apply_late_fee_form
+msgid "Apply Late Fee"
+msgstr "Mora"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__message_attachment_count
+msgid "Attachment Count"
+msgstr "Recuento de archivos adjuntos"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract_line__auto_payment
+msgid "Auto Payment"
+msgstr "Pago automático"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_make_payment__auto_select
+msgid "Auto Select"
+msgstr "Selección automática"
+
+#. module: condo
+#: model:ir.model.fields.selection,name:condo.selection__condo_contract_line__state__cancel model_terms:ir.ui.view,arch_db:condo.condo_form_view_new model_terms:ir.ui.view,arch_db:condo.condo_search_view model_terms:ir.ui.view,arch_db:condo.view_condo_charge_report_form
+#: model_terms:ir.ui.view,arch_db:condo.view_wizard_apply_late_fee_form model_terms:ir.ui.view,arch_db:condo.wiz_make_payment_form_view
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: condo
+#: model:ir.model.fields.selection,name:condo.selection__condo_contract__state__cancelled
+msgid "Cancelled"
+msgstr "Cancelado"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.report_ticket_fee
+msgid "Cant."
+msgstr "Cant."
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_charge_history__charge_status
+msgid "Charge"
+msgstr "Cargo"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__amount_charge
+msgid "Charge Amount"
+msgstr "Cargo por Monto"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.res_config_settings_view_form
+msgid "Charge Journal"
+msgstr "Diario cargos"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract_line__charge_line
+msgid "Charge Line"
+msgstr "Línea de carga"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_make_payment__comment
+msgid "Comment"
+msgstr "Comentario"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__company_id
+msgid "Company"
+msgstr "Compañia"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.condo_form_view_new
+msgid "Compute Payment Schedule"
+msgstr "Calcular calendario de pagos"
+
+#. module: condo
+#: model:ir.ui.menu,name:condo.condo_menu_1 model:ir.ui.menu,name:condo.condo_menu_1_list model:ir.ui.menu,name:condo.condo_menu_root model_terms:ir.ui.view,arch_db:condo.res_config_settings_view_form
+msgid "Condo"
+msgstr "Condominio"
+
+#. module: condo
+#: model:ir.actions.act_window,name:condo.action_condo_charge_report model:ir.actions.report,name:condo.action_report_condo_charge
+msgid "Condo Charge Report"
+msgstr "Informe de cargos de condominio"
+
+#. module: condo
+#: model:ir.model,name:condo.model_condo_contract
+msgid "Condo Contract"
+msgstr "Contrato de condominio"
+
+#. module: condo
+#: model:ir.model,name:condo.model_condo_contract_line
+msgid "Condo Contract Line"
+msgstr "Línea de Contrato de Condominio"
+
+#. module: condo
+#: model:ir.model,name:condo.model_condo_contract_line_wizard
+msgid "Condo Contract Line Wizard"
+msgstr "Asistente de línea de contrato de condominio"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_res_config_settings__condo_journal
+msgid "Condo Diario"
+msgstr "Condominio Diario"
+
+#. module: condo
+#: model:ir.model,name:condo.model_condo_charge_report model_terms:ir.ui.view,arch_db:condo.view_condo_charge_report_form
+msgid "Condo charge Report"
+msgstr "Informe de cargo de condominio"
+
+#. module: condo
+#: model:ir.model,name:condo.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de configuración"
+
+#. module: condo
+#: model:ir.ui.menu,name:condo.condo_menu_settings
+msgid "Configuration"
+msgstr "Configuración"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.condo_form_view_new model_terms:ir.ui.view,arch_db:condo.condo_search_view
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: condo
+#: model:ir.model.fields.selection,name:condo.selection__condo_contract__state__confirm
+msgid "Confirmed"
+msgstr "Confirmado"
+
+#. module: condo
+#: model:ir.model,name:condo.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: condo
+#: model:ir.actions.act_window,name:condo.condo_action_window model:ir.model.fields,field_description:condo.field_account_bank_statement_line__contract_id model:ir.model.fields,field_description:condo.field_account_move__contract_id
+#: model:ir.model.fields,field_description:condo.field_account_payment_register__contract_id model:ir.model.fields,field_description:condo.field_condo_charge_history__contract_id model:ir.model.fields,field_description:condo.field_condo_charge_report__partner_ids
+#: model:ir.model.fields,field_description:condo.field_condo_contract_line__contract_id model:ir.model.fields,field_description:condo.field_make_payment__condo_contract_id model:product.template,name:condo.contract_product_product_template
+#: model_terms:ir.ui.view,arch_db:condo.report_condo_charge model_terms:ir.ui.view,arch_db:condo.view_account_payment_register_form_inherit_condo
+msgid "Contract"
+msgstr "Contrato"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.view_account_move_form model_terms:ir.ui.view,arch_db:condo.view_account_payment_form
+msgid "Contract Condo"
+msgstr "Contrato de condominio"
+
+#. module: condo
+#: model:ir.actions.act_window,name:condo.action_condo_contract_line model:ir.model.fields,field_description:condo.field_condo_charge_history__contract_line_id model:ir.model.fields,field_description:condo.field_make_payment__condo_contract_line_ids
+#: model:ir.model.fields,field_description:condo.field_make_payment__contract_line_ids model:ir.model.fields,field_description:condo.field_wizard_apply_late_fee__contract_line_id model:ir.ui.menu,name:condo.condo_menu_2
+msgid "Contract Line"
+msgstr "Línea de contrato"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_account_payment__contract_id
+msgid "Contract Payment"
+msgstr "Pago del contrato"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_account_payment__contract_line_id
+msgid "Contract Payment Line"
+msgstr "Línea de pago de contrato"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract_line__contract_state
+msgid "Contract State"
+msgstr "Estado del contrato"
+
+#. module: condo
+#: model:ir.model.constraint,message:condo.constraint_condo_contract_name_uniq
+msgid "Contract name must be unique"
+msgstr "El nombre del contrato debe ser único."
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_view_report_pay_invoice__contract_name
+msgid "Contrat Condo"
+msgstr "Contrato Condominio"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_charge_history__create_uid model:ir.model.fields,field_description:condo.field_condo_charge_report__create_uid model:ir.model.fields,field_description:condo.field_condo_contract__create_uid
+#: model:ir.model.fields,field_description:condo.field_condo_contract_line__create_uid model:ir.model.fields,field_description:condo.field_condo_contract_line_wizard__create_uid model:ir.model.fields,field_description:condo.field_make_payment__create_uid
+#: model:ir.model.fields,field_description:condo.field_wizard_apply_late_fee__create_uid
+msgid "Created by"
+msgstr "Creado por:"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_charge_history__create_date model:ir.model.fields,field_description:condo.field_condo_charge_report__create_date model:ir.model.fields,field_description:condo.field_condo_contract__create_date
+#: model:ir.model.fields,field_description:condo.field_condo_contract_line__create_date model:ir.model.fields,field_description:condo.field_condo_contract_line_wizard__create_date model:ir.model.fields,field_description:condo.field_make_payment__create_date
+#: model:ir.model.fields,field_description:condo.field_wizard_apply_late_fee__create_date
+msgid "Created on"
+msgstr "Creado sobre:"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__cuote_completed
+msgid "Cuotas Completadas"
+msgstr "Cuotas Completadas"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__currency_id model:ir.model.fields,field_description:condo.field_condo_contract_line__currency_id model:ir.model.fields,field_description:condo.field_wizard_apply_late_fee__currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__partner_id model:ir.model.fields,field_description:condo.field_condo_contract_line__partner_id
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: condo
+#: model:ir.model.fields,help:condo.field_condo_contract_line__date
+msgid "Date when the payment will be accounted"
+msgstr "Fecha en que se contabilizará el pago"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.res_config_settings_view_form
+msgid "Default Journal"
+msgstr "Diario Predeterminado"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.res_config_settings_view_form
+msgid "Default journal applied to Charge payment"
+msgstr "Diario predeterminado aplicado al pago del cargo"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.res_config_settings_view_form
+msgid "Default journal applied to condo payment"
+msgstr "Diario predeterminado aplicado al pago del condominio"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.res_config_settings_view_form
+msgid "Default other account income applied to Charge payment"
+msgstr "Otros ingresos de cuenta predeterminados aplicados al pago del cargo"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__diferent_invoice
+msgid "Diferent Invoice"
+msgstr "Diferencia en Factura"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_charge_history__display_name model:ir.model.fields,field_description:condo.field_condo_charge_report__display_name model:ir.model.fields,field_description:condo.field_condo_contract__display_name
+#: model:ir.model.fields,field_description:condo.field_condo_contract_line__display_name model:ir.model.fields,field_description:condo.field_condo_contract_line_wizard__display_name model:ir.model.fields,field_description:condo.field_make_payment__display_name
+#: model:ir.model.fields,field_description:condo.field_view_report_pay_invoice__display_name model:ir.model.fields,field_description:condo.field_wizard_apply_late_fee__display_name
+msgid "Display Name"
+msgstr "Nombre Completo"
+
+#. module: condo
+#: model:ir.model.fields.selection,name:condo.selection__condo_contract__state__done model_terms:ir.ui.view,arch_db:condo.condo_form_view_new model_terms:ir.ui.view,arch_db:condo.condo_search_view
+msgid "Done"
+msgstr "Hecho"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__done_fully_payment
+msgid "Done Fully"
+msgstr "Hecho completamente"
+
+#. module: condo
+#: model:ir.model.fields.selection,name:condo.selection__condo_contract__state__draft model_terms:ir.ui.view,arch_db:condo.condo_search_view
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract_line__date
+msgid "Due Date"
+msgstr "Fecha vencido"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_charge_report__end_date
+msgid "End Date"
+msgstr "Fecha Final"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.condo_form_view_new
+msgid "Extra Invoice"
+msgstr "Extra en factura"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_view_report_pay_invoice__date_receipt
+msgid "Fecha Recibo"
+msgstr "Fecha Recibo"
+
+#. module: condo
+#: model:ir.actions.report,name:condo.action_fee_ticket
+msgid "Fee Ticket"
+msgstr "Mora en recibo"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (Asociados)"
+
+#. module: condo
+#: model:ir.model.fields,help:condo.field_condo_contract__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Icono de fuente impresionante, p. tareas fa"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.condo_search_view model_terms:ir.ui.view,arch_db:condo.view_condo_contract_line_search_view
+msgid "Group By"
+msgstr "Agrupado por:"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__has_message
+msgid "Has Message"
+msgstr "Tiene mensaje"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.view_res_partner_condo_form
+msgid "Here you will enter the name of the project you are working on."
+msgstr "Aquí ingresarás el nombre del proyecto en el que estás trabajando."
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__history_ids
+msgid "History"
+msgstr "Historial"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_charge_history__id model:ir.model.fields,field_description:condo.field_condo_charge_report__id model:ir.model.fields,field_description:condo.field_condo_contract__id
+#: model:ir.model.fields,field_description:condo.field_condo_contract_line__id model:ir.model.fields,field_description:condo.field_condo_contract_line_wizard__id model:ir.model.fields,field_description:condo.field_make_payment__id
+#: model:ir.model.fields,field_description:condo.field_view_report_pay_invoice__id model:ir.model.fields,field_description:condo.field_wizard_apply_late_fee__id
+msgid "ID"
+msgstr "Id"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__activity_exception_icon
+msgid "Icon"
+msgstr "Icono"
+
+#. module: condo
+#: model:ir.model.fields,help:condo.field_condo_contract__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icono para indicar una actividad de excepción."
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_view_report_pay_invoice__id_contract_paid
+msgid "Id Contract Paid"
+msgstr "Contrato de identificación pagado"
+
+#. module: condo
+#: model:ir.model.fields,help:condo.field_condo_contract__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado, los mensajes nuevos requieren su atención."
+
+#. module: condo
+#: model:ir.model.fields,help:condo.field_condo_contract__message_has_error model:ir.model.fields,help:condo.field_condo_contract__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si está marcado, algunos mensajes tienen un error de entrega."
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__inceptive_amount
+msgid "Inceptive Amount"
+msgstr "Monto inicial"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__initial_total
+msgid "Initial Total"
+msgstr "Total del Inicial"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.report_condo_charge
+msgid "Interest Amount"
+msgstr ""
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__invoice_ids
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__invoice_count
+msgid "Invoice Count"
+msgstr "Recuento de facturas"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.condo_form_view_new
+msgid "Invoices"
+msgstr "Facturas"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__message_is_follower
+msgid "Is Follower"
+msgstr "Es seguidor"
+
+#. module: condo
+#. odoo-python
+#: code:addons/condo/models/condo_contract_line.py:0
+#, python-format
+msgid "It is not possible to add late fees when the document has already been cancelled."
+msgstr "No es posible agregar cargos por mora cuando el documento ya ha sido cancelado."
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__journal_id
+msgid "Journal"
+msgstr "Diario Predeterminado"
+
+#. module: condo
+#: model:ir.model,name:condo.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_charge_history__write_uid model:ir.model.fields,field_description:condo.field_condo_charge_report__write_uid model:ir.model.fields,field_description:condo.field_condo_contract__write_uid
+#: model:ir.model.fields,field_description:condo.field_condo_contract_line__write_uid model:ir.model.fields,field_description:condo.field_condo_contract_line_wizard__write_uid model:ir.model.fields,field_description:condo.field_make_payment__write_uid
+#: model:ir.model.fields,field_description:condo.field_wizard_apply_late_fee__write_uid
+msgid "Last Updated by"
+msgstr "Ultima actualización por"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_charge_history__write_date model:ir.model.fields,field_description:condo.field_condo_charge_report__write_date model:ir.model.fields,field_description:condo.field_condo_contract__write_date
+#: model:ir.model.fields,field_description:condo.field_condo_contract_line__write_date model:ir.model.fields,field_description:condo.field_condo_contract_line_wizard__write_date model:ir.model.fields,field_description:condo.field_make_payment__write_date
+#: model:ir.model.fields,field_description:condo.field_wizard_apply_late_fee__write_date
+msgid "Last Updated on"
+msgstr "Ultima actualización en"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract_line__charge_amount model:ir.model.fields,field_description:condo.field_wizard_apply_late_fee__charge_amount model_terms:ir.ui.view,arch_db:condo.condo_form_view_new
+msgid "Late Fee"
+msgstr "Mora"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract_line__late_payment model_terms:ir.ui.view,arch_db:condo.condo_form_view_new
+msgid "Late Payment"
+msgstr "Pago por mora"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract_line__left_payment model_terms:ir.ui.view,arch_db:condo.report_condo_charge
+msgid "Left Payment"
+msgstr "Pago restante"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__line_ids
+msgid "Line"
+msgstr "Línea"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract_line__line_paid_status
+msgid "Line Fully Paid"
+msgstr "Línea Totalmente Pagada"
+
+#. module: condo
+#: model:ir.module.category,name:condo.module_paid_cuote
+msgid "Make Paid in Coute"
+msgstr "Hacer pagos en cuotas"
+
+#. module: condo
+#: model:ir.actions.act_window,name:condo.action_mark_payment model:ir.model,name:condo.model_make_payment model_terms:ir.ui.view,arch_db:condo.condo_contract_patial_payment_wizard model_terms:ir.ui.view,arch_db:condo.wiz_make_payment_form_view
+msgid "Make Payment"
+msgstr "Hacer pagos"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.view_condo_charge_report_form
+msgid "Make Report"
+msgstr "Hacer Reporte"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.condo_form_view_new
+msgid "Mark Payment"
+msgstr "Hacer pagos"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_view_report_pay_invoice__comment
+msgid "Memo"
+msgstr "Memo"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de entrega de mensaje"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_res_config_settings__condo_default_journal
+msgid "Mora Diario"
+msgstr "Diario de Mora"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract_line__move_id
+msgid "Move"
+msgstr "Movimiento de acciones"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Fecha límite de mi actividad"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__name model:ir.model.fields,field_description:condo.field_condo_contract_line__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.view_res_partner_condo_form
+msgid "Name Project A.C. ISABELLA V"
+msgstr "Nombre Proyecto A.C. ISABELLA V"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Fecha límite para la próxima actividad"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de la próxima actividad"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__activity_type_id
+msgid "Next Activity Type"
+msgstr "Siguiente tipo de actividad"
+
+#. module: condo
+#. odoo-python
+#: code:addons/condo/wizards/condo_charge_report.py:0
+#, python-format
+msgid "No record found...!"
+msgstr "¡No se encontró ningún registro...!"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_view_report_pay_invoice__no_paid
+msgid "No. Pago"
+msgstr "No. Pago"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.condo_form_view_new
+msgid "Number"
+msgstr "Número"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__message_needaction_counter
+msgid "Number of Actions"
+msgstr "No. acciones"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__message_has_error_counter
+msgid "Number of errors"
+msgstr "No. errores"
+
+#. module: condo
+#: model:ir.model.fields,help:condo.field_condo_contract__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Número de mensajes que requieren acción"
+
+#. module: condo
+#: model:ir.model.fields,help:condo.field_condo_contract__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de entrega"
+
+#. module: condo
+#: model:ir.model.fields,help:condo.field_condo_contract__period
+msgid "Number of periods that the loan will last"
+msgstr "Número de periodos que durará el préstamo"
+
+#. module: condo
+#: model:ir.model.fields.selection,name:condo.selection__condo_contract_line__state__open
+msgid "Open"
+msgstr "Abierto"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.view_condo_contract_line_search_view
+msgid "Order Date"
+msgstr "¡Puede ingresar la emisión de piezas ya sea en la fecha de la orden de trabajo abierta o entre la fecha de la orden de trabajo abierta y la fecha actual!"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.res_config_settings_view_form
+msgid "Other account income"
+msgstr "Otros ingresos de cuenta predeterminados aplicados al pago del cargo"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_res_config_settings__account_charge
+msgid "Otro Ingreso por Mora"
+msgstr "Otro Ingreso por Mora"
+
+#. module: condo
+#. odoo-python
+#: code:addons/condo/wizards/account_register_payment.py:0
+#, python-format
+msgid "Pagos"
+msgstr "Pagos"
+
+#. module: condo
+#: model:ir.model.fields.selection,name:condo.selection__condo_contract_line__state__paid
+msgid "Paid"
+msgstr "Pago"
+
+#. module: condo
+#: model:ir.actions.act_window,name:condo.action_patial_payment model:ir.model.fields.selection,name:condo.selection__condo_contract_line__state__partial model_terms:ir.ui.view,arch_db:condo.condo_form_view_new
+msgid "Partial Payment"
+msgstr "Pago Parcial"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.condo_search_view model_terms:ir.ui.view,arch_db:condo.report_condo_charge
+msgid "Partner"
+msgstr "Socios"
+
+#. module: condo
+#. odoo-python
+#: code:addons/condo/wizards/condo_contract_line_wizard.py:0
+#, python-format
+msgid "Patial payment amount must be greater than 0"
+msgstr "El monto del pago parcial debe ser mayor que 0"
+
+#. module: condo
+#: model:res.groups,name:condo.group_access_pay_fee
+msgid "Pay Fee"
+msgstr "Pago por mora"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__payment_ids model:ir.model.fields,field_description:condo.field_condo_contract_line__payment_id model_terms:ir.ui.view,arch_db:condo.condo_form_view_new
+msgid "Payment"
+msgstr "Pagos"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_make_payment__payment_amount
+msgid "Payment Amount"
+msgstr "Monto del pago"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__payment_count
+msgid "Payment Count"
+msgstr "Recuento de pagos"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_make_payment__payment_date
+msgid "Payment Date"
+msgstr "Fecha de pago prevista"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.condo_form_view_new
+msgid "Payment Done"
+msgstr "Pago realizado"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__payment_interval
+msgid "Payment Interval"
+msgstr "Intervalo de pago"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__period
+msgid "Payment Period"
+msgstr "Período de pago"
+
+#. module: condo
+#: model:ir.ui.menu,name:condo.condo_menu_report model_terms:ir.ui.view,arch_db:condo.condo_contract_patial_payment_wizard model_terms:ir.ui.view,arch_db:condo.condo_form_view_new
+msgid "Payment Schedule"
+msgstr "Calendario de pagos"
+
+#. module: condo
+#. odoo-python
+#: code:addons/condo/models/condo_contract.py:0
+#, python-format
+msgid "Payment schedule line cannot be empty"
+msgstr "La línea del cronograma de pagos no puede estar vacía"
+
+#. module: condo
+#: model:ir.model,name:condo.model_account_payment model_terms:ir.ui.view,arch_db:condo.condo_form_view_new
+msgid "Payments"
+msgstr "Pagos"
+
+#. module: condo
+#. odoo-python
+#: code:addons/condo/models/condo_contract.py:0
+#, python-format
+msgid "Please make sure that there is an invoice associated with the document to proceed to process payments."
+msgstr "Asegúrese de que haya una factura asociada al documento para proceder a procesar los pagos."
+
+#. module: condo
+#. odoo-python
+#: code:addons/condo/models/condo_contract.py:0 code:addons/condo/models/condo_contract_line.py:0
+#, python-format
+msgid "Please make sure you confirm the record first before generating payment."
+msgstr "Asegúrese de confirmar el registro antes de generar el pago."
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.report_ticket_fee
+msgid "Precio"
+msgstr "Precio"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.view_report_pay_invoice_tree
+msgid "Print"
+msgstr "Imprimir"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.report_ticket_fee
+msgid "Producto"
+msgstr "Producto"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__project_name model:ir.model.fields,field_description:condo.field_res_partner__project_name model:ir.model.fields,field_description:condo.field_res_users__project_name
+msgid "Project Name"
+msgstr "Nombre del proyecto"
+
+#. module: condo
+#: model:ir.model,name:condo.model_account_payment_register
+msgid "Register Payment"
+msgstr "Registrar pago"
+
+#. module: condo
+#: model:ir.ui.menu,name:condo.condo_report_menu_1
+msgid "Report"
+msgstr "Reporte"
+
+#. module: condo
+#: model:ir.model,name:condo.model_report_condo_report_condo_charge
+msgid "Report Condo Charge"
+msgstr "Informar cargo de condominio"
+
+#. module: condo
+#: model:ir.model,name:condo.model_view_report_pay_invoice
+msgid "Report Product on Invoices lines Statistics"
+msgstr "Reportar Producto en Estadísticas de líneas de Facturas"
+
+#. module: condo
+#: model:ir.actions.act_window,name:condo.view_report_pay_invoice_action model:ir.ui.menu,name:condo.main_menu_view_report_pay_invoice model_terms:ir.ui.view,arch_db:condo.view_report_pay_invoice_tree
+msgid "Reporte de pagos"
+msgstr "Reporte de pagos"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario responsable"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Error de entrega de SMS"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.condo_search_view
+msgid "Search Condo"
+msgstr "Buscar condominio"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.view_condo_contract_line_search_view
+msgid "Search Contract"
+msgstr "Contrato de búsqueda"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_charge_report__all_partners
+msgid "Select All Contract"
+msgstr "Seleccionar todo el contrato"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__separacion
+msgid "Separacion"
+msgstr "Separación"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract_line__sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: condo
+#: model:ir.actions.act_window,name:condo.condo_setting_action_window model:ir.ui.menu,name:condo.condo_menu_settings_1 model_terms:ir.ui.view,arch_db:condo.res_config_settings_view_form
+msgid "Settings"
+msgstr "Configuración"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.res_config_settings_view_form
+msgid "Settings Other Account Income"
+msgstr "Configuración Otros ingresos de la cuenta"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_charge_report__start_date model:ir.model.fields,field_description:condo.field_condo_contract__start_date
+msgid "Start Date"
+msgstr "Fecha de inicio"
+
+#. module: condo
+#: model:ir.model.fields,help:condo.field_condo_contract__start_date
+msgid "Start of the moves"
+msgstr "Inicio de los movimientos"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__state model:ir.model.fields,field_description:condo.field_condo_contract_line__state model_terms:ir.ui.view,arch_db:condo.condo_search_view
+msgid "State"
+msgstr "Estado"
+
+#. module: condo
+#: model:ir.model.fields,help:condo.field_condo_contract__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Estado basado en actividades.\n"
+"Vencido: la fecha de vencimiento ya pasó\n"
+"Hoy: la fecha de la actividad es hoy.\n"
+"Planificado: Actividades futuras."
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract_line__amount_subtotal
+msgid "Subtotal"
+msgstr "Subtotal"
+
+#. module: condo
+#. odoo-python
+#: code:addons/condo/models/condo_contract_line.py:0
+#, python-format
+msgid "Subtotal amount cannot be less than done payment amount"
+msgstr "El monto subtotal no puede ser menor que el monto del pago realizado"
+
+#. module: condo
+#. odoo-python
+#: code:addons/condo/models/condo_contract.py:0
+#, python-format
+msgid "The payment schedule cannot be computed becuase the contract amount is zero"
+msgstr "El calendario de pagos no se puede calcular porque el monto del contrato es cero"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.res_config_settings_view_form
+msgid "These taxes are set in any new product created."
+msgstr "Estos impuestos se fijan en cualquier producto nuevo creado."
+
+#. module: condo
+#. odoo-python
+#: code:addons/condo/models/condo_contract.py:0
+#, python-format
+msgid "This action cannot be performed until all payment has been registered."
+msgstr "Esta acción no se puede realizar hasta que se haya registrado todo el pago."
+
+#. module: condo
+#: model:ir.model.fields,help:condo.field_condo_contract__diferent_invoice
+msgid "This amount reflects the difference to be paid by the bank and the completeness of the invoice."
+msgstr "Este importe refleja la diferencia a pagar por el banco y la integridad de la factura."
+
+#. module: condo
+#. odoo-python
+#: code:addons/condo/models/condo_contract.py:0
+#, python-format
+msgid "This process once finished cannot be canceled..."
+msgstr "Este proceso una vez finalizado no se puede cancelar..."
+
+#. module: condo
+#: model:ir.model,name:condo.model_report_condo_report_ticket_fee
+msgid "Ticket Fee"
+msgstr "Recibo "
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.report_ticket_fee
+msgid "Total"
+msgstr "Total"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_account_payment__amount_with_interest
+msgid "Total Amount"
+msgstr "Monto Total"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__amount_due_total
+msgid "Total Due Amount"
+msgstr "Monto total adeudado"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_view_report_pay_invoice__total_paid
+msgid "Total Pagado"
+msgstr "Total Pagado"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract_line__patial_payment
+msgid "Total Partial Payment"
+msgstr "Pago Parcial Total"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.report_condo_charge
+msgid "Total Patial Payment"
+msgstr "Pago parcial total"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.report_condo_charge
+msgid "Total Payment"
+msgstr "Pago Total"
+
+#. module: condo
+#: model:ir.model.fields,help:condo.field_condo_contract__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Tipo de actividad de excepción registrada."
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_contract__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del sitio web"
+
+#. module: condo
+#: model:ir.model.fields,help:condo.field_condo_contract__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicación del sitio web"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.condo_contract_line_tree_view model_terms:ir.ui.view,arch_db:condo.condo_form_view_new
+msgid "amount_due"
+msgstr "Monto Vencido"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.condo_contract_line_tree_view model_terms:ir.ui.view,arch_db:condo.condo_form_view_new
+msgid "amount_subtotal"
+msgstr "Subtotal"
+
+#. module: condo
+#: model:res.groups,name:condo.group_access_assign_cuote
+msgid "asigned charge in cuote"
+msgstr "Permiso para asignar cargos en la cuota"
+
+#. module: condo
+#: model:ir.model.fields,field_description:condo.field_condo_charge_history__charge_create_date
+msgid "charge Create Date"
+msgstr "cargo crear fecha"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.condo_contract_line_tree_view model_terms:ir.ui.view,arch_db:condo.condo_form_view_new
+msgid "charge_amount"
+msgstr "Cargo por Monto"
+
+#. module: condo
+#: model:ir.model,name:condo.model_condo_charge_history
+#, fuzzy
+msgid "condo.charge.history"
+msgstr "condo.charge.history"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.condo_contract_line_tree_view model_terms:ir.ui.view,arch_db:condo.condo_form_view_new
+#, fuzzy
+msgid "late_payment"
+msgstr "late_payment"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.condo_contract_line_tree_view model_terms:ir.ui.view,arch_db:condo.condo_form_view_new
+#, fuzzy
+msgid "patial_payment"
+msgstr "patial_payment"
+
+#. module: condo
+#: model_terms:ir.ui.view,arch_db:condo.res_config_settings_view_form
+msgid "select the account for other income in the payment."
+msgstr "Selecciona la cuenta predeterminada para otros ingresos"

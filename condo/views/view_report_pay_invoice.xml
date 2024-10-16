@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  © 2024 ISJO TECHNOLOGY, SRL (Daniel Diaz <daniel.diaz@isjo-technology.com>)
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <data>
+        <!-- View Tree -->
+        <record model="ir.ui.view" id="view_report_pay_invoice_tree">
+            <field name="name">view report pay invoice tree</field>
+            <field name="model">view.report.pay.invoice</field>
+            <field name="arch" type="xml">
+                <tree string='Reporte de pagos' create="false" >
+                    <field
+                        name="id"
+                        widget="handle"
+                        optional="show" />
+                    <field
+                        name="no_paid"
+                        force_save="1"
+                        optional="show" />
+                    <field name="date_receipt" force_save="1" optional="show"/>
+                    <field name="total_paid" optional="show"/>
+                    <field name="comment" optional="show" />
+                    <field name="id_contract_paid" optional="hide" />
+                    <field name="contract_name" optional="show" />
+                    <button
+                        name="action_print_report"
+                        type="object"
+                        string="Print"
+                        class="oe_highlight" />
+                    <!--<button
+                        name="open_account_move"
+                        type="object"
+                        string="Ver Factura"
+                        class="oe_highlight"/>-->
+                </tree>
+            </field>
+        </record>
+
+        <!-- View Pivot -->
+        <!--<record id="view_report_pay_invoice_pivot" model="ir.ui.view">
+            <field name="name">view report pay invoice pivot</field>
+            <field name="model">view.report.pay.invoice</field>
+            <field name="arch" type="xml">
+                <pivot
+                    string="Reporte de pagos"
+                    disable_linking="True"
+                    sample="1">
+                    <field name="client_invoice" type="col" />
+                    <field name="total_paid" type="row" />
+                </pivot>
+            </field>
+        </record>-->
+
+        <!-- View Graph -->
+        <!--<record id="view_report_pay_invoice_graph" model="ir.ui.view">
+            <field name="name">view report pay invoice graph</field>
+            <field name="model">view.report.pay.invoice</field>
+            <field name="arch" type="xml">
+                <graph
+                    string="Reporte de pagos"
+                    type="line"
+                    sample="1"
+                    disable_linking="1">
+                    <field name="client_invoice" />
+                    <field name="total_paid" type="measure" />
+                </graph>
+            </field>
+        </record>-->
+
+        <!-- View Search -->
+        <!--<record model="ir.ui.view" id="search_view_report_pay_invoice_extend">
+            <field name="name">view report pay invoice search</field>
+            <field name="model">view.report.pay.invoice</field>
+            <field name="arch" type="xml">
+                <search string="Reporte de pagos">
+                    <separator orientation="vertical" />
+                    <field
+                        name="move_name"
+                        string="Número Factura"
+                        filter_domain="[('move_name','ilike',self)]" />
+
+                    <field
+                        name="no_paid"
+                        string="No. Pago"
+                        filter_domain="[('no_paid','ilike', self)]" />
+                    <newline/>
+                    <group expand="0" string="Agrupar por...">
+                        <filter
+                            name="client_invoice"
+                            string="Cliente"
+                            icon="terp-personal"
+                            domain="[]"
+                            context="{'group_by':'client_invoice'}" />
+                        <filter
+                            name="date_invoice"
+                            string="Fecha Factura"
+                            domain="[]"
+                            context="{'group_by': 'date_invoice'}" />
+                        <filter
+                            name="date_receipt"
+                            string="Fecha Recibo"
+                            domain="[]"
+                            context="{'group_by': 'date_receipt'}" />
+                    </group>
+                </search>
+            </field>
+        </record>-->
+
+        <!-- View Action -->
+        <record id="view_report_pay_invoice_action" model="ir.actions.act_window">
+            <field name="name">Reporte de pagos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">view.report.pay.invoice</field>
+            <field name="view_mode">tree</field>
+            <!--<field name="context">
+                {
+                    'search_default_client_invoice': 1,
+                    'search_default_date_invoice': 1,
+                }
+            </field>-->
+            <field name="view_id" eval="False" />
+            <field name="help">A partir de este informe, puede tener una visión general de los pagos realizados a facturas de clientes. La herramienta de búsqueda también se puede utilizar para personalizar sus informes de facturas y, por lo tanto, adaptar este análisis a sus necesidades..</field>
+        </record>
+
+        <!-- Menu -->
+        <menuitem
+            action="view_report_pay_invoice_action"
+            name="Reporte de pagos"
+            sequence="10"
+            id="main_menu_view_report_pay_invoice"
+            parent="account.menu_finance_reports" />
+
+    </data>
+</odoo>
