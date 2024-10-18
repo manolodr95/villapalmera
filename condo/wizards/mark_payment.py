@@ -190,7 +190,7 @@ class MakePayment(models.TransientModel):
                     # Buscar la factura de mora relacionada con la línea del contrato
                     mora_invoice = self.env['account.move'].search(
                         [('contract_line_id', '=', contract.id), ('move_type', '=', 'out_invoice'),
-                         ('journal_id.is_active', '=', True), ('state', '!=', 'paid')], limit=1)
+                         ('journal_id.is_active', '=', True), ('payment_state', '!=', 'paid')], limit=1)
                     mora_payment_amount = 0.0
                     if mora_invoice:
                         mora_payment_amount = min(auto_payment, mora_invoice.amount_residual)
@@ -242,31 +242,31 @@ class MakePayment(models.TransientModel):
 
                     for line in selected_lines:
                         line_payment = 0
-                        payment_needed = line.amount_subtotal - line.patial_payment  # Total que falta por pagar en la línea
+                        # payment_needed = line.amount_subtotal - line.patial_payment  # Total que falta por pagar en la línea
 
                         if auto_payment > 0:
-                            # payment_needed = line.amount_subtotal - line.patial_payment
+                            payment_needed = line.amount_subtotal - line.patial_payment
                             if auto_payment >= payment_needed:
                                 # Se paga completamente esta cuota
-                                line_payment = payment_needed
-                                auto_payment -= line_payment
-                                line.patial_payment += line_payment
-                                line.left_payment -= line_payment
-                                line.auto_payment += line_payment
-                                # auto_payment -= (line_payment + mora_payment_amount)
-                                # line.patial_payment += (line_payment + mora_payment_amount)
-                                # line.left_payment -= abs(line_payment + mora_payment_amount)
-                                # line.auto_payment += (line_payment + mora_payment_amount)
+                                # line_payment = payment_needed
+                                # auto_payment -= line_payment
+                                # line.patial_payment += line_payment
+                                # line.left_payment -= line_payment
+                                # line.auto_payment += line_payment
+                                auto_payment -= (line_payment + mora_payment_amount)
+                                line.patial_payment += (line_payment + mora_payment_amount)
+                                line.left_payment -= abs(line_payment + mora_payment_amount)
+                                line.auto_payment += (line_payment + mora_payment_amount)
                                 line.state = 'paid'
                                 line.payment_id = payment.id
                             else:
                                 line_payment = auto_payment
-                                line.patial_payment += line_payment
-                                line.left_payment -= line_payment
-                                line.auto_payment += line_payment
-                                # line.patial_payment += (line_payment + mora_payment_amount)
-                                # line.left_payment -= abs(line_payment + mora_payment_amount)
-                                # line.auto_payment += (line_payment + mora_payment_amount)
+                                # line.patial_payment += line_payment
+                                # line.left_payment -= line_payment
+                                # line.auto_payment += line_payment
+                                line.patial_payment += (line_payment + mora_payment_amount)
+                                line.left_payment -= abs(line_payment + mora_payment_amount)
+                                line.auto_payment += (line_payment + mora_payment_amount)
                                 line.state = 'partial'
                                 line.payment_id = payment.id
                                 auto_payment = 0

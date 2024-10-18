@@ -157,7 +157,7 @@
                                         <field name="late_payment" optional="show" force_save="1" sum="late_payment" readonly="state == 'paid'" string="Late Payment"/>
                                         <field name="amount_subtotal" readonly="1" force_save="1" optional="show" sum="amount_subtotal"/>
                                         <field name="state" widget="badge" optional="hide"/>
-                                        <field name="payment_id" invisible="1"/>
+                                        <field name="payment_id" invisible="1" optional="hide"/>
                                         <field name="auto_payment" readonly="1" optional="hide" string="Payment Done"/>
                                         <field name="left_payment" readonly="1" optional="hide" force_save="1"/>
                                         <field name="patial_payment" string="Partial Payment" sum="patial_payment" optional="show" readonly="state == 'paid'"/>
