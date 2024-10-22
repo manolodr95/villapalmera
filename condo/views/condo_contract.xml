@@ -219,6 +219,19 @@
                                     </tree>-->
                                 <!--</field>-->
                             </page>
+                            <page name="calculate_cuote_automatic" string="Calcula Cuota % Automáticamente" groups="condo.group_access_assign_cuote">
+                            <div class="oe_title">
+                                <div class="oe_row">
+                                    <h1 invisible="applied_cuote_atomatic != True">
+                                        <field name="automatic_cuote"/>
+                                    </h1>
+                                    <label for="applied_cuote_atomatic"/>
+                                    <div>
+                                        <field name="applied_cuote_atomatic"/>
+                                    </div>
+                                </div>
+                            </div>
+                            </page>
                             <!--<page string="History" name="history">
                                 <field name="history_ids" readonly="1">
                                     <tree>

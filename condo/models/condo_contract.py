@@ -5,6 +5,8 @@ from decimal import Decimal, getcontext
 
 from odoo import api, fields, models, _
 from datetime import datetime, date
+from datetime import date as dt_date
+from datetime import timedelta
 from dateutil.relativedelta import relativedelta
 import logging
 from odoo.exceptions import UserError
@@ -148,6 +150,17 @@ class CondoContract(models.Model):
         help='This amount reflects the difference to be paid by the bank and the completeness of the invoice.',
         string='Diferent Invoice',
         states={'confirm': [('readonly', True)], 'done': [('readonly', True)], 'cancelled': [('readonly', True)]},
+    )
+
+    applied_cuote_atomatic = fields.Boolean(
+        string='Apply quotas automatically',
+        default=False
+    )
+
+    automatic_cuote = fields.Float(
+        default=0.0,
+        string='Percentage rate, for automatic calculation',
+        help='We will save this field in the system to automate late payments in the system.',
     )
 
     currency_id = fields.Many2one(
@@ -572,3 +585,78 @@ class CondoContract(models.Model):
 
     def _get_report_filename(self):
         return self.name + '_Condo_' + self.partner_id.name + '.pdf'
+
+    def ir_cron_condo_email_remainder(self, days):
+        delta = relativedelta(days=days)
+        date = fields.Date.context_today(self) + delta
+        # domain = [("date", ">=", dt_date(2024, 8, 1)), ("date", "<=", dt_date(2024, 8, 30))]
+        domain = [("date", ">=", fields.Date.context_today(self)), ("date", "<=", date)]
+        contracts = self.env["condo.contract.line"].search(domain).mapped("contract_id")
+        template = self.env.ref("condo.email_template_condo_contract")
+        for contract in contracts:
+            due_line = contract.line_ids.filtered(lambda r: r.state == "open")
+            if due_line:
+                due_line = due_line[0]
+                ctx = {"amount_due": due_line.amount_due, "payment_date": due_line.date}
+                template.with_context(ctx).send_mail(contract.id, force_send=True)
+
+    def action_compute_charge_for_late_payment(self):
+        today = fields.Date.context_today(self)
+        first_day_next_month = today.replace(day=1) + relativedelta(months=1)
+
+        # Cuotas fuera del mes actual que aún estén abiertas
+        domain = [
+            ("date", "<", first_day_next_month),  # Cuotas antes del próximo mes
+            ("state", "=", "open")  # Solo cuotas que aún están abiertas (ajusta según tu estado)
+        ]
+
+        # Aquí podrías hacer la búsqueda de las cuotas
+        cuotas_abiertas_fuera_mes_actual = self.env['condo.contract.line'].search(domain)
+        if not cuotas_abiertas_fuera_mes_actual:
+            return # Si no hay cuotas, termina la función aquí
+        for cuota in cuotas_abiertas_fuera_mes_actual:
+            # Buscar la factura de mora relacionada con la línea del contrato
+            mora_invoice = self.env['account.move'].search(
+                [('contract_line_id', '=', cuota.id), ('move_type', '=', 'out_invoice'),
+                 ('journal_id.is_active', '=', True), ('payment_state', '!=', 'paid')], limit=1)
+            if cuota.contract_id.applied_cuote_atomatic and cuota.contract_id.automatic_cuote > 0.0:
+                porcent_mora = cuota.contract_id.automatic_cuote / 100
+
+                mora_payment_amount = cuota.left_payment * porcent_mora
+                if not mora_invoice:
+                #     mora_payment_amount = min(auto_payment, mora_invoice.amount_residual)
+                    if mora_payment_amount > 0:
+                        # crear factura cargo a mora
+                        product = self.env.ref("condo.contract_product_charge")
+                        accounts = product.product_tmpl_id._get_product_accounts()
+                        payload = {
+                            "move_type": "out_invoice",
+                            "partner_id": cuota.contract_id.partner_id.id,
+                            "invoice_date": fields.Date.today(),  # self.start_date,
+                            "journal_id": self.env['account.journal'].search([('is_active', '=', True)], limit=1).id,
+                            "invoice_date_due": fields.Date.today() + timedelta(days=30),
+                            # Calcular la fecha de vencimiento (por ejemplo, 30 días después de la fecha actual)
+                            "company_id": cuota.contract_id.company_id.id,
+                            "contract_id": cuota.contract_id.id,
+                            "invoice_line_ids": [
+                                (
+                                    0,
+                                    0,
+                                    {
+                                        "product_id": product.id,
+                                        "name": f"Cargo por mora: {mora_payment_amount} - Contrato: {cuota.name} / [{cuota.contract_id.project_name}] {cuota.contract_id.partner_id.name}",
+                                        "price_unit": mora_payment_amount,
+                                        "account_id": accounts.get("income").id,
+                                    },
+                                )
+                            ],
+                        }
+                        inv = self.env["account.move"].create(payload)
+                        inv.action_post()
+
+                        cuota.write({
+                            'charge_amount': cuota.charge_amount + mora_payment_amount, # Sumar mora pagada (si existe) más el nuevo cargo
+                            'late_payment': mora_payment_amount  # Mantener o actualizar el valor de mora no pagada
+                        })
+
+
