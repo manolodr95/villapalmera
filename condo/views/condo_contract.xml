@@ -170,6 +170,40 @@
                                             class="oe_link"
                                             groups="condo.group_access_assign_cuote" />
                                     </tree>
+                                    <form string="Payment Line Details">
+                                        <header>
+                                            <field name="state" widget="statusbar" options="{'clickable': False}" readonly="1"/>
+                                        </header>
+                                        <sheet>
+                                            <group>
+                                                <group>
+                                                    <field name="name" readonly="1"/>
+                                                    <field name="partner_id" widget="many2one_avatar" readonly="1"/>
+                                                    <field name="amount_due" readonly="state == 'paid'"/>
+                                                    <field name="charge_amount" readonly="state == 'paid'" string="Late Fee"/>
+                                                    <field name="late_payment" readonly="state == 'paid'" string="Late Payment"/>
+                                                </group>
+                                                <group>
+                                                    <field name="date" readonly="1"/>
+                                                    <field name="amount_subtotal" readonly="1"/>
+                                                    <field name="auto_payment" readonly="1" string="Payment Done"/>
+                                                    <field name="left_payment" readonly="1"/>
+                                                    <field name="patial_payment" string="Partial Payment" readonly="state == 'paid'"/>
+                                                    <field name="line_paid_status" widget="boolean_toggle" readonly="1"/>
+                                                </group>
+                                            </group>
+                                            <footer>
+                                                <button
+                                                    name="action_generate_extra_invoice"
+                                                    type="object"
+                                                    string="Extra Invoice"
+                                                    class="btn-primary"
+                                                    invisible="state in ('paid', 'cancel')"
+                                                    groups="condo.group_access_assign_cuote"/>
+                                                <button string="Close" class="btn-secondary" special="cancel"/>
+                                            </footer>
+                                        </sheet>
+                                    </form>
                                 </field>
                                 <group colspan="4">
                                     <group class="oe_subtotal_footer">

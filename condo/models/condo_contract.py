@@ -237,6 +237,7 @@ class CondoContract(models.Model):
     amount_paid = fields.Monetary(
         string='Amount Paid'
     )
+    
     amount_total = fields.Monetary(
         compute='_compute_amount_due_total',
         string='Amount Total',
@@ -456,84 +457,6 @@ class CondoContract(models.Model):
         else:
             raise UserError(_("The payment schedule cannot be computed because the contract amount is zero."))
 
-    # def action_compute_payment_schedule(self):
-    #     """
-    #     Computes the payment schedule
-    #     :return: Amount to be payed on the annuity
-    #     """
-    #     dateSepacion = time.strftime(DEFAULT_SERVER_DATE_FORMAT)
-    #     amount = self.initial_total
-    #     period = self.period
-    #     delta = relativedelta(months=self.payment_interval)
-    #     for amortizacion in self:
-    #         amortizacion.line_ids.unlink()
-    #
-    #     try:
-    #         day = self.start_date.day if self.start_date else dateSepacion[8:10]
-    #         month = self.start_date.month if self.start_date else dateSepacion[5:7]
-    #         year = self.start_date.year if self.start_date else dateSepacion[0:4]
-    #     except (ValidationError, UserError, TypeError) as exception:
-    #         raise Warning(('Error: %s' % str(exception)))
-    #     print(day, month, year)
-    #     datePaid = datetime(int(year), int(month), int(day)).date()
-    #
-    #     p_amount = self._action_calulate_amount(amount, period)
-    #     principal_amount = float(format(p_amount, ".2f"))
-    #     decimal_error = amount - float(principal_amount) * period
-    #     decimal_error = float(format(decimal_error, ".2f"))
-    #     separacion = float(format(self.separacion, ".2f"))
-    #
-    #     #----------Calculate----------------#
-    #
-    #     datePaid += delta
-    #     separacion_date = dateSepacion
-    #     # date += delta
-    #     for i in range(2, period + 2):
-    #         payload = {
-    #             "contract_id": self.id,
-    #             "sequence": i,
-    #             "date": datePaid,
-    #             "amount_due": principal_amount + decimal_error if i > period else principal_amount,
-    #             "left_payment": principal_amount + decimal_error if i > period else principal_amount,
-    #             "amount_subtotal": principal_amount + decimal_error if i > period else principal_amount,
-    #             "partner_id": self.partner_id,
-    #         }
-    #         datePaid += delta
-    #         line = self.env["condo.contract.line"].create(payload)
-    #     sumation = float(format(sum([a.amount_due for a in self.line_ids]), ".2f"))
-    #     if sumation < amount:
-    #         error = float(format(amount - sumation, ".2f"))
-    #         [
-    #             a.write({"amount_due": float(format(a.amount_due + error, ".2f"))})
-    #             for a in self.line_ids.filtered(lambda r: r.sequence == 1)
-    #         ]
-    #     elif sumation > amount:
-    #         error = float(format(sumation - amount, ".2f"))
-    #         [
-    #             a.write({"amount_due": float(format(a.amount_due - error, ".2f"))})
-    #             for a in self.line_ids.filtered(lambda r: r.sequence == 1)
-    #         ]
-    #     if self.separacion:
-    #
-    #         payload = {
-    #             "contract_id": self.id,
-    #             "sequence": 1,
-    #             "date": separacion_date,
-    #             "amount_due": separacion,
-    #             "left_payment": separacion,
-    #             "amount_subtotal": separacion,
-    #             "partner_id": self.partner_id.id,
-    #         }
-    #         self.env["condo.contract.line"].create(payload)
-    #
-    #     else:
-    #
-    #         raise UserError(
-    #             _(
-    #                 "The payment schedule cannot be computed becuase the contract amount is zero"
-    #             )
-    #         )
-
     _sql_constraints = [
         ("name_uniq", "unique(name, company_id)", "Contract name must be unique"),
     ]
@@ -581,6 +504,7 @@ class CondoContract(models.Model):
             )
         for line in self.line_ids:
             line.unlink()
+        self.cuote_completed = False
         self.state = 'draft'
 
     def _get_report_filename(self):
@@ -638,6 +562,7 @@ class CondoContract(models.Model):
                             # Calcular la fecha de vencimiento (por ejemplo, 30 días después de la fecha actual)
                             "company_id": cuota.contract_id.company_id.id,
                             "contract_id": cuota.contract_id.id,
+                            "contract_line_id": cuota.id,
                             "invoice_line_ids": [
                                 (
                                     0,

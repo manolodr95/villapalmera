@@ -9,7 +9,7 @@ class MakePayment(models.TransientModel):
     _description = "Make Payment"
 
     auto_select = fields.Boolean(
-        string="Auto Select",
+        string="Applied unique paid",
         default=True,
         store=True
     )
@@ -139,6 +139,101 @@ class MakePayment(models.TransientModel):
         condo_charge_account_id = int(self.env['ir.config_parameter'].sudo().get_param('condo.charge.account'))
 
         if self.auto_select:
+            unique_auto_payment = auto_payment = self.payment_amount
+            mora_payment = None
+
+            # Ordenar las líneas de contrato pendientes por fecha de vencimiento
+            ordered_lines = self.condo_contract_id.line_ids.filtered(lambda l: l.state in ('open', 'partial')).sorted(
+                'date')
+
+            for line in ordered_lines:
+                if auto_payment <= 0:
+                    break  # Detener si no hay más monto disponible para pagar
+
+                # Buscar la factura de mora relacionada con la línea del contrato
+                mora_invoice = self.env['account.move'].search(
+                    [('contract_line_id', '=', line.id), ('move_type', '=', 'out_invoice'),
+                     ('journal_id.is_active', '=', True), ('payment_state', '!=', 'paid')], limit=1)
+
+                mora_payment_amount = 0.0
+                if mora_invoice:
+                    mora_payment_amount = min(auto_payment, mora_invoice.amount_residual)
+                    if mora_payment_amount > 0:
+                        mora_payment_payload = {
+                            'payment_type': 'inbound',
+                            'partner_type': 'customer',
+                            'partner_id': line.partner_id.id,
+                            'payment_method_id': payment_method_id.id,
+                            'amount': mora_payment_amount,
+                            'journal_id': condo_payment_id,
+                            'date': self.payment_date,
+                            'ref': f"Mora - {self.comment if self.comment else ''} {'- ' if self.comment else ''}{line.name}",
+                            'contract_id': self.condo_contract_id.id,
+                            'contract_line_id': line.id,
+                        }
+                        mora_payment = self.env['account.payment'].create(mora_payment_payload)
+                        mora_payment.action_post()  # Registrar el pago de la mora
+                        auto_payment -= mora_payment_amount  # Restar el monto pagado de mora del pago disponible
+                        unique_auto_payment -= mora_payment_amount  # Restar el monto pagado de mora del pago disponible
+
+                        # Aplicar el pago a la factura de mora
+                        mora_invoice.js_assign_outstanding_line(
+                            mora_payment.line_ids.filtered(
+                                lambda l: l.account_id.account_type == 'asset_receivable').id)
+                        # Actualizar el saldo restante de la mora
+                        line.late_payment -= mora_payment_amount
+
+                payment_needed = line.amount_subtotal - line.patial_payment
+
+                if payment_needed <= auto_payment:
+                    # Caso de pago completo
+                    line_payment = payment_needed
+                    auto_payment -= line_payment
+                    line.patial_payment = 0 # line_payment
+                    line.left_payment = 0  # No queda nada por pagar
+                    line.auto_payment += line_payment
+                    line.line_paid_status = True
+                    line.state = 'paid'
+                    line.payment_id = mora_payment.id if mora_payment else None
+                else:
+                    # Caso de pago parcial
+                    line_payment = auto_payment
+                    line.patial_payment += line_payment
+                    line.left_payment -= line_payment
+                    line.auto_payment += line_payment
+                    line.state = 'partial'
+                    line.payment_id = mora_payment.id if mora_payment else None
+                    auto_payment = 0  # Todo el auto_payment fue usado
+
+                # Asegurarse de que no quede residual en left_payment
+                if abs(line.left_payment) < 0.01:
+                    line.left_payment = 0
+                    line.state = 'paid'
+
+            # Si queda algún monto después de pagar la mora, aplicarlo al contrato principal
+            if unique_auto_payment > 0:
+                payment_amount = unique_auto_payment
+                payment_payload = {
+                    'payment_type': 'inbound',
+                    'partner_type': 'customer',
+                    'partner_id': line.partner_id.id,
+                    'payment_method_id': payment_method_id.id,
+                    'amount': payment_amount,
+                    'journal_id': condo_payment_id,
+                    'date': self.payment_date,
+                    'ref': f"Cuota - {self.comment if self.comment else ''} {'- ' if self.comment else ''}{line.name}",
+                    'contract_id': self.condo_contract_id.id,
+                    'contract_line_id': line.id,
+                }
+                payment = self.env['account.payment'].create(payment_payload)
+                payment.action_post()  # Registrar el pago del contrato principal
+                unique_auto_payment -= payment_amount
+
+            # Verificar si todas las cuotas están pagadas
+            all_paid = all(line.state == 'paid' for line in self.condo_contract_id.line_ids)
+            self.condo_contract_id.cuote_completed = all_paid
+
+        if not self.auto_select:
             auto_payment = self.payment_amount
 
             for contract in self.contract_line_ids:
@@ -203,7 +298,7 @@ class MakePayment(models.TransientModel):
                                 'amount': mora_payment_amount,
                                 'journal_id': condo_payment_id,
                                 'date': self.payment_date,
-                                'ref': f'Mora - {self.comment} ó {contract.name} ',
+                                'ref': f"Mora - {self.comment if self.comment else ''} {'- ' if self.comment else ''}{contract.name}",
                                 'contract_id': self.condo_contract_id.id,
                                 'contract_line_id': contract.id,
                             }
@@ -229,52 +324,47 @@ class MakePayment(models.TransientModel):
                             'amount': payment_amount,
                             'journal_id': condo_payment_id,
                             'date': self.payment_date,
-                            'ref': self.comment,
+                            'ref': f"Cuota - {self.comment if self.comment else ''} {'- ' if self.comment else ''}{contract.name}",
                             'contract_id': self.condo_contract_id.id,
                             'contract_line_id': contract.id,
                         }
                         payment = self.env['account.payment'].create(payment_payload)
                         payment.action_post()  # Registrar el pago del contrato principal
-                        # auto_payment -= payment_amount
+                        auto_payment -= payment_amount
 
                     # Procesar las líneas seleccionadas
                     selected_lines = self.contract_line_ids.filtered(lambda x: x.id == contract.id)
 
                     for line in selected_lines:
-                        line_payment = 0
-                        # payment_needed = line.amount_subtotal - line.patial_payment  # Total que falta por pagar en la línea
+                        # Monto necesario para completar esta línea
+                        payment_needed = line.amount_subtotal - line.patial_payment
 
-                        if auto_payment > 0:
-                            payment_needed = line.amount_subtotal - line.patial_payment
-                            if auto_payment >= payment_needed:
-                                # Se paga completamente esta cuota
-                                # line_payment = payment_needed
-                                # auto_payment -= line_payment
-                                # line.patial_payment += line_payment
-                                # line.left_payment -= line_payment
-                                # line.auto_payment += line_payment
-                                auto_payment -= (line_payment + mora_payment_amount)
-                                line.patial_payment += (line_payment + mora_payment_amount)
-                                line.left_payment -= abs(line_payment + mora_payment_amount)
-                                line.auto_payment += (line_payment + mora_payment_amount)
-                                line.state = 'paid'
-                                line.payment_id = payment.id
+                        if payment_needed <= auto_payment or payment_needed <= (payment_amount + mora_payment_amount) and auto_payment > 0:
+                            # Caso de pago completo
+                            line_payment = payment_needed
+                            # auto_payment -= line_payment
+                            # line.patial_payment += line_payment
+                            line.left_payment = 0  # No queda nada por pagar
+                            line.auto_payment += line_payment
+                            line.line_paid_status = True
+                            line.state = 'paid'
+                            line.payment_id = payment.id
+                        else:
+                            # Caso de pago parcial
+                            line_payment = payment_amount
+                            if payment_amount < payment_needed:
+                                line.patial_payment += line_payment
                             else:
-                                line_payment = auto_payment
-                                # line.patial_payment += line_payment
-                                # line.left_payment -= line_payment
-                                # line.auto_payment += line_payment
-                                line.patial_payment += (line_payment + mora_payment_amount)
-                                line.left_payment -= abs(line_payment + mora_payment_amount)
-                                line.auto_payment += (line_payment + mora_payment_amount)
-                                line.state = 'partial'
-                                line.payment_id = payment.id
-                                auto_payment = 0
-
-                            # Asegurarse de que no quede residual en left_payment
-                            if abs(line.left_payment) < 0.01:
-                                line.left_payment = 0
-                                line.state = 'paid'
+                                line.patial_payment = 0
+                            line.left_payment -= line_payment
+                            line.auto_payment += line_payment
+                            line.state = 'partial' if payment_amount < payment_needed else 'paid'
+                            line.payment_id = payment.id
+                            auto_payment = 0  # Todo el auto_payment fue usado
+                        # Asegurarse de que no quede residual en left_payment
+                        if abs(line.left_payment) < 0.01:
+                            line.left_payment = 0
+                            line.state = 'paid'
                     # Si encontramos una cuota sin pagar, marcamos la variable
                     if line.state in ('open', 'partial'):
                         previous_unpaid_found = True

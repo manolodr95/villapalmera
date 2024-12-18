@@ -1,4 +1,6 @@
-# © 2024 Daniel Eduardo Diaz Mateo <daniel.diaz@isjo-technology.com>
+# -*- coding: utf-8 -*-
+# Copyright 2024 Daniel Diaz (<http://www.isjo-technology.com/>)
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     'name': 'Condo',
     'summary': 'Condo Management',

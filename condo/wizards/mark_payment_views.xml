@@ -3,7 +3,6 @@
   © 2024 ISJO TECHNOLOGY, SRL (Daniel Diaz <daniel.diaz@isjo-technology.com>)
   License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-  attrs="{'invisible':[('auto_select','=',True)]}"
 -->
 <odoo>
     <data>
@@ -16,7 +15,7 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="auto_select"  readonly="True"/>
+                            <field name="auto_select" widget="toggle_boolean"/>
                             <field name="condo_contract_id" invisible="1" />
                             <field name="contract_line_ids" widget="many2many_tags" domain="[('id','in',condo_contract_line_ids)]" options="{'no_create': 1}"/>
                             <field name="condo_contract_line_ids" widget="many2many_tags" invisible="1" />
