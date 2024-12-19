@@ -147,22 +147,22 @@
                                         groups="condo.group_access_pay_fee"
                                     />
                                 </div>
-                                <field name="line_ids" string="Payment" readonly="1">
-                                    <tree decoration-muted="state == 'paid' or (auto_payment and auto_payment == amount_subtotal)">
+                                <field name="line_ids" string="Payment" readonly="0">
+                                    <tree editable="1" decoration-muted="state == 'paid' or (auto_payment and auto_payment == amount_subtotal)" create="0" delete="0">
                                         <field name="id" invisible="1"/>
                                         <field name="name" optional="show"/>
-                                        <field name="date" optional="show"/>
-                                        <field name="amount_due" optional="show" force_save="1" sum="amount_due" readonly="state == 'paid'"/>
-                                        <field name="charge_amount" optional="show" force_save="1" sum="charge_amount" readonly="state == 'paid'" string="Late Fee"/>
-                                        <field name="late_payment" optional="show" force_save="1" sum="late_payment" readonly="state == 'paid'" string="Late Payment"/>
+                                        <field name="date" readonly="state != 'open'"/>
+                                        <field name="amount_due" optional="show" force_save="1" sum="amount_due" readonly="1"/>
+                                        <field name="charge_amount" optional="show" force_save="1" sum="charge_amount" readonly="1" string="Late Fee"/>
+                                        <field name="late_payment" optional="show" force_save="1" sum="late_payment" readonly="1" string="Late Payment"/>
                                         <field name="amount_subtotal" readonly="1" force_save="1" optional="show" sum="amount_subtotal"/>
-                                        <field name="state" widget="badge" optional="hide"/>
-                                        <field name="payment_id" invisible="1" optional="hide"/>
+                                        <field name="state" widget="badge" optional="hide" readonly="1"/>
+                                        <field name="payment_id" invisible="1" optional="hide" readonly="1"/>
                                         <field name="auto_payment" readonly="1" optional="hide" string="Payment Done"/>
                                         <field name="left_payment" readonly="1" optional="hide" force_save="1"/>
-                                        <field name="patial_payment" string="Partial Payment" sum="patial_payment" optional="show" readonly="state == 'paid'"/>
-                                        <field name="line_paid_status" widget="boolean_toggle" optional="hide"/>
-                                        <field name="partner_id" widget="many2one_avatar" optional="hide"/>
+                                        <field name="patial_payment" string="Partial Payment" sum="patial_payment" optional="show" readonly="1"/>
+                                        <field name="line_paid_status" widget="boolean_toggle" optional="hide" readonly="1"/>
+                                        <field name="partner_id" widget="many2one_avatar" optional="hide" readonly="1"/>
                                         <button
                                             name="action_generate_extra_invoice"
                                             type="object" invisible="state in ('paid','cancel')"
@@ -170,6 +170,7 @@
                                             class="oe_link"
                                             groups="condo.group_access_assign_cuote" />
                                     </tree>
+
                                     <form string="Payment Line Details">
                                         <header>
                                             <field name="state" widget="statusbar" options="{'clickable': False}" readonly="1"/>
