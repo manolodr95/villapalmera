@@ -118,6 +118,7 @@
                                 <field name="name" placeholder="Number" readonly="1"/>
                                 <field name="apt_number" readonly="state in ['confirm', 'done', 'cancelled']"/>
                                 <field name="start_date" readonly="state in ['confirm', 'done', 'cancelled']"/>
+                                <field name="aparment_amount_total" readonly="state in ['confirm', 'done', 'cancelled']"/>
                                 <field name="inceptive_amount" readonly="state in ['confirm', 'done', 'cancelled']"/>
                                 <field name="separacion" readonly="state in ['confirm', 'done', 'cancelled']"/>
                                 <field name="initial_total" force_save="1"/>

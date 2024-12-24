@@ -74,12 +74,31 @@ class CondoContract(models.Model):
         for rec in self:
             rec.payment_count = len(rec.payment_ids)
 
+    @api.onchange('inceptive_amount')
+    def _onchange_apartment_amount_total(self):
+        for rec in self:
+            _logger.info(f"Processing record ID: {rec.id}")
+            _logger.info(f"Apartment Amount Total before change: {rec.aparment_amount_total}")
+
+            if rec.aparment_amount_total is not None:
+                rec.aparment_amount_total -= rec.inceptive_amount
+
+            rec.diferent_invoice = rec.aparment_amount_total or 0.0
+            _logger.info(f"Apartment Amount Total after change: {rec.aparment_amount_total}")
+
     name = fields.Char(
         copy=False,
         store=True,
         required=True,
         readonly=True,
         default=_default_name_sequence
+    )
+    
+    aparment_amount_total = fields.Monetary(
+        string='Monto Contrato',
+        currency_field='currency_id',
+        required=True,
+        default=0.0
     )
 
     partner_id = fields.Many2one(
@@ -144,12 +163,12 @@ class CondoContract(models.Model):
         default=fields.Date.today(),
     )
 
-    diferent_invoice = fields.Float(
-        required=True,
+    diferent_invoice = fields.Monetary(
+        string='Diferent Invoice',
+        currency_field='currency_id',
         default=0.0,
         help='This amount reflects the difference to be paid by the bank and the completeness of the invoice.',
-        string='Diferent Invoice',
-        states={'confirm': [('readonly', True)], 'done': [('readonly', True)], 'cancelled': [('readonly', True)]},
+        required=True
     )
 
     applied_cuote_atomatic = fields.Boolean(
