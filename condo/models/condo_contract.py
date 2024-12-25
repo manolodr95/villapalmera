@@ -81,7 +81,7 @@ class CondoContract(models.Model):
             _logger.info(f"Apartment Amount Total before change: {rec.aparment_amount_total}")
 
             if rec.aparment_amount_total is not None:
-                rec.aparment_amount_total -= rec.inceptive_amount
+                rec.aparment_amount_total
 
             rec.diferent_invoice = rec.aparment_amount_total or 0.0
             _logger.info(f"Apartment Amount Total after change: {rec.aparment_amount_total}")
