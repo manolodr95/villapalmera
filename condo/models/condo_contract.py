@@ -306,7 +306,7 @@ class CondoContract(models.Model):
             amount_paid = 0.0
             amount_total = 0.0
             amount_charge = 0.0
-            diferent_invoice = record.diferent_invoice - record.initial_total
+            diferent_invoice = record.diferent_invoice
 
             # Buscar todos los pagos relacionados con este contrato
             payments = self.env['account.payment'].search([('contract_id', '=', record.id)])
