@@ -31,7 +31,7 @@ class CondoContract(models.Model):
     @api.depends('inceptive_amount', 'separacion')
     def _compute_initial_complete(self):
         for rec in self:
-            rec.initial_total = rec.inceptive_amount - rec.separacion
+            rec.initial_total = rec.inceptive_amount + rec.separacion
 
     @api.depends('partner_id')
     def _compute_project_name(self):
