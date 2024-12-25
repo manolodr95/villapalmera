@@ -81,7 +81,7 @@ class CondoContract(models.Model):
             _logger.info(f"Apartment Amount Total before change: {rec.aparment_amount_total}")
 
             if rec.aparment_amount_total is not None:
-                rec.aparment_amount_total
+                rec.aparment_amount_total -= rec.inceptive_amount
 
             rec.diferent_invoice = rec.aparment_amount_total or 0.0
             _logger.info(f"Apartment Amount Total after change: {rec.aparment_amount_total}")
@@ -602,5 +602,3 @@ class CondoContract(models.Model):
                             'charge_amount': cuota.charge_amount + mora_payment_amount, # Sumar mora pagada (si existe) más el nuevo cargo
                             'late_payment': mora_payment_amount  # Mantener o actualizar el valor de mora no pagada
                         })
-
-
