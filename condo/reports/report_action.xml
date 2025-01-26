@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  © 2024 (Daniel Diaz <daniel.diaz@isjo-technology.com>)
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <data>
+        <record id="action_report_condo_charge" model="ir.actions.report">
+            <field name="name">Condo Charge Report</field>
+            <field name="model">condo.charge.report</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">condo.report_condo_charge</field>
+            <field name="report_file">condo.report_condo_charge</field>
+            <field name="print_report_name">'Contract Report'</field>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>
