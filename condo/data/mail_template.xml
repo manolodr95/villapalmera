@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  © 2024 ISJO TECHNOLOGY, SRL (Daniel Diaz <daniel.diaz@isjo-technology.com>)
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <data noupdate="0">
+        <!-- Definir una plantilla de correo -->
+        <record id="email_template_condo_contract" model="mail.template">
+            <field name="name">Condo Contract Notification</field>
+            <field name="model_id" ref="condo.model_condo_contract"/>
+            <field name="email_from">${object.company_id.email_formatted |safe}</field>
+            <field name="email_to">${object.partner_id.email_formatted |safe}</field>
+            <field name="subject">${object.company_id.name}: Payment Notification for Contract ${object.name}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear ${object.partner_id.name}
+                        <br />
+                    </p>
+                    <p>
+                        This email is to notify you that the day <strong>${ctx.get('payment_date')} </strong> will expire your payment corresponding to the fee <strong>${format_amount(ctx.get('amount_due'), object.currency_id)}</strong>, said fee is for the sum of <strong>${format_amount(object.amount_total, object.currency_id)}</strong> for the purchase of the functional unit ${object.apt_number } of the condominium ${object.project_name }, to avoid delay please make your payments before the day (payment date added 5 days of grace), at the time of making your payment notify us ventas@villapalmera.com.do.
+                    </p>
+                </div>
+            </field>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="auto_delete" eval="True"/>
+            <!--<field name="user.signature" eval="False"/>-->
+        </record>
+    </data>
+</odoo>

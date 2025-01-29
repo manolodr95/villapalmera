@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  © 2024 ISJO TECHNOLOGY, SRL (Daniel Diaz <daniel.diaz@isjo-technology.com>)
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
+-->
+<odoo>
+    <data>
+
+        <record id="view_wizard_apply_late_fee_form" model="ir.ui.view">
+            <field name="name">wizard.apply.late.fee.form</field>
+            <field name="model">wizard.apply.late.fee</field>
+            <field name="arch" type="xml">
+                <form string="Apply Late Fee">
+                    <group>
+                        <field name="contract_line_id" options="{'no_create': True, 'no_open': True, 'no_edit_create': True}" readonly="1"/>
+                        <field name="charge_amount" style="width: 50% !important;"/>
+                    </group>
+                    <footer>
+                        <button string="Apply" type="object" name="action_apply_late_fee" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_apply_late_fee_wizard" model="ir.actions.act_window">
+            <field name="name">Apply Late Fee</field>
+            <field name="res_model">wizard.apply.late.fee</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="view_wizard_apply_late_fee_form"/>
+        </record>
+
+    </data>
+</odoo>

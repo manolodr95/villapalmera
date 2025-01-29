@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  © 2024 ISJO TECHNOLOGY, SRL (Daniel Diaz <daniel.diaz@isjo-technology.com>)
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <data>
+        <!-- Vistas de Formulario -->
+        <!--<record id="condo_contract_line_form" model="ir.ui.view">
+            <field name="name">condo.contract.line.form</field>
+            <field name="model">condo.contract.line</field>
+            <field name="arch" type="xml">
+                <form string="Payment Schedule">
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                        &lt;!&ndash;<button name="%(condo.action_patial_payment)d" type="action" class="btn-default" string="Partial Payment" modifiers="{'invisible': ['|', ('state', '=', 'paid'), ('interest_line', '=', True)]}" />
+                        <button name="action_generate_payment" type="object" class="btn-primary left" string="Full Payment" modifiers="{'invisible': ['|', ('state', '!=', 'open'), ('interest_line', '=', True)]}" />&ndash;&gt;
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="amount_due"/>
+                                <field name="interest_amount"/>
+                                <field name="move_id" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                                <field name="amount_subtotal" readonly="1" string="Amount Total"/>
+                                <field name="patial_payment" string="Partial Payment"/>
+                                <field name="interest_line" invisible="1"/>
+                                <field name="payment_id" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>-->
+
+        <!-- Vistas de Búsqueda -->
+        <record id="condo_search_view" model="ir.ui.view">
+            <field name="name">condo.search.view</field>
+            <field name="model">condo.contract</field>
+            <field name="arch" type="xml">
+                <search string="Search Condo">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="apt_number"/>
+                    <field name="project_name"/>
+                    <filter string="Draft" domain="[('state', '=', 'draft')]" name="state_draft"/>
+                    <filter string="Confirm" domain="[('state', '=', 'confirmed')]" name="state_confirmed"/>
+                    <filter string="Done" domain="[('state', '=', 'done')]" name="state_done"/>
+                    <filter string="Cancel" domain="[('state', '=', 'cancelled')]" name="state_cancelled"/>
+                    <!--<filter string="Has tags" domain="[('category_id', '!=', False)]" name="has_tags"/>-->
+                    <group expand="0" string="Group By">
+                        <filter string="State" name="state" context="{'group_by': 'state'}"/>
+                        <filter string="Partner" name="partner_id" context="{'group_by': 'partner_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Vista de Lista -->
+        <record id="condo_list_view_new" model="ir.ui.view">
+            <field name="name">condo.list</field>
+            <field name="model">condo.contract</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" optional="show"/>
+                    <field name="partner_id" optional="show"/>
+                    <field name="company_id" optional="hide"/>
+                    <field name="state" optional="show"/>
+                    <field name="project_name" optional="show"/>
+                    <field name="line_ids" optional="hide"/>
+                    <field name="period" optional="show"/>
+                    <field name="start_date" optional="show"/>
+                    <field name="diferent_invoice" optional="hide"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="amount" optional="show"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Vista de Formulario con Notebook -->
+        <record id="condo_form_view_new" model="ir.ui.view">
+            <field name="name">condo.form</field>
+            <field name="model">condo.contract</field>
+            <field name="arch" type="xml">
+                <form create="1" edit="1" delete="1">
+                    <header>
+                        <button name="action_draft_contract" string="Establecer a Borrador" invisible="state in ('draft','confirm','done')" type="object"/>
+                        <button name="action_compute_payment_schedule" type="object" string="Compute Payment Schedule" invisible="state != 'draft'" />
+                        <button name="action_confirm" type="object" invisible="state != 'draft' or not line_ids" string="Confirm" class="oe_highlight" />
+                        <button name="action_done" type="object" invisible="state in ('draft','cancelled','done') or cuote_completed != True" string="Done" class="oe_highlight" />
+                        <button name="button_cancel" invisible="state in ('draft','cancelled')" string="Cancel" type="object"/>
+                        <field name="state" widget="statusbar" nolabel="1" statusbar_visible="draft,confirm,done,cancelled"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_show_invoices" type="object" class="oe_stat_button" icon="fa-book">
+                                <field name="invoice_count" widget="statinfo" string="Invoices" />
+                            </button>
+                            <button name="action_show_payments" type="object" class="oe_stat_button" icon="fa-book">
+                                <field name="payment_count" widget="statinfo" string="Payments" />
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <div class="oe_row">
+                                <h1>
+                                    <field name="partner_id" options="{'no_create': True}" readonly="state in ['confirm', 'done', 'cancelled']"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <group/>
+                        <group>
+                            <field name="company_id" invisible="1"/>
+                            <group>
+                                <field name="name" placeholder="Number" readonly="1"/>
+                                <field name="apt_number" readonly="state in ['confirm', 'done', 'cancelled']"/>
+                                <field name="start_date" readonly="state in ['confirm', 'done', 'cancelled']"/>
+                                <field name="aparment_amount_total" readonly="state in ['confirm', 'done', 'cancelled']"/>
+                                <field name="inceptive_amount" readonly="state in ['confirm', 'done', 'cancelled']"/>
+                                <field name="separacion" readonly="state in ['confirm', 'done', 'cancelled']"/>
+                                <field name="initial_total" string="Pendiente del Inicial" force_save="1"/>
+                                <field name="done_fully_payment" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="project_name" readonly="state in ['confirm', 'done', 'cancelled']"/>
+                                <field name="journal_id" options="{'no_create': True}" readonly="state in ['confirm', 'done', 'cancelled']"/>
+                                <field name="diferent_invoice" readonly="state in ['confirm', 'done', 'cancelled']"/>
+                                <field name="period" readonly="state in ['confirm', 'done', 'cancelled']"/>
+                                <field name="payment_interval" readonly="state in ['confirm', 'done', 'cancelled']"/>
+                                <field name="cuote_completed" readonly="1" invisible="0"/>
+                                <field name="currency_id" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Payment Schedule" name="Schedule">
+                                <div col="12" class="o_row" invisible="not line_ids" style="width: 150px !important;">
+                                    <button
+                                        col="12"
+                                        style="width: 150px !important;"
+                                        name="%(action_mark_payment)d"
+                                        type="action"
+                                        string="Mark Payment"
+                                        class="oe_highlight"
+                                        invisible="cuote_completed == True or state == 'cancelled'"
+                                        groups="condo.group_access_pay_fee"
+                                    />
+                                </div>
+                                <field name="line_ids" string="Payment" readonly="0">
+                                    <tree editable="1" decoration-muted="state == 'paid' or (auto_payment and auto_payment == amount_subtotal)" create="0" delete="0">
+                                        <field name="id" invisible="1"/>
+                                        <field name="name" optional="show"/>
+                                        <field name="date" readonly="state != 'open'"/>
+                                        <field name="amount_due" optional="show" force_save="1" sum="amount_due" readonly="1"/>
+                                        <field name="charge_amount" optional="show" force_save="1" sum="charge_amount" readonly="1" string="Late Fee"/>
+                                        <field name="late_payment" optional="show" force_save="1" sum="late_payment" readonly="1" string="Late Payment"/>
+                                        <field name="amount_subtotal" readonly="1" force_save="1" optional="show" sum="amount_subtotal"/>
+                                        <field name="state" widget="badge" optional="hide" readonly="1"/>
+                                        <field name="payment_id" invisible="1" optional="hide" readonly="1"/>
+                                        <field name="auto_payment" readonly="1" optional="hide" string="Payment Done"/>
+                                        <field name="left_payment" readonly="1" optional="hide" force_save="1"/>
+                                        <field name="patial_payment" string="Partial Payment" sum="patial_payment" optional="show" readonly="1"/>
+                                        <field name="line_paid_status" widget="boolean_toggle" optional="hide" readonly="1"/>
+                                        <field name="partner_id" widget="many2one_avatar" optional="hide" readonly="1"/>
+                                        <button
+                                            name="action_generate_extra_invoice"
+                                            type="object" invisible="state in ('paid','cancel')"
+                                            string="Extra Invoice"
+                                            class="oe_link"
+                                            groups="condo.group_access_assign_cuote" />
+                                    </tree>
+
+                                    <form string="Payment Line Details">
+                                        <header>
+                                            <field name="state" widget="statusbar" options="{'clickable': False}" readonly="1"/>
+                                        </header>
+                                        <sheet>
+                                            <group>
+                                                <group>
+                                                    <field name="name" readonly="1"/>
+                                                    <field name="partner_id" widget="many2one_avatar" readonly="1"/>
+                                                    <field name="amount_due" readonly="state == 'paid'"/>
+                                                    <field name="charge_amount" readonly="state == 'paid'" string="Late Fee"/>
+                                                    <field name="late_payment" readonly="state == 'paid'" string="Late Payment"/>
+                                                </group>
+                                                <group>
+                                                    <field name="date" readonly="1"/>
+                                                    <field name="amount_subtotal" readonly="1"/>
+                                                    <field name="auto_payment" readonly="1" string="Payment Done"/>
+                                                    <field name="left_payment" readonly="1"/>
+                                                    <field name="patial_payment" string="Partial Payment" readonly="state == 'paid'"/>
+                                                    <field name="line_paid_status" widget="boolean_toggle" readonly="1"/>
+                                                </group>
+                                            </group>
+                                            <footer>
+                                                <button
+                                                    name="action_generate_extra_invoice"
+                                                    type="object"
+                                                    string="Extra Invoice"
+                                                    class="btn-primary"
+                                                    invisible="state in ('paid', 'cancel')"
+                                                    groups="condo.group_access_assign_cuote"/>
+                                                <button string="Close" class="btn-secondary" special="cancel"/>
+                                            </footer>
+                                        </sheet>
+                                    </form>
+                                </field>
+                                <group colspan="4">
+                                    <group class="oe_subtotal_footer">
+                                        <field name="amount_total" />
+                                        <field name="amount_paid"  readonly="1"/>
+                                        <field name="amount_charge" />
+                                        <field name="amount_due_total" readonly="1" class="oe_subtotal_footer_separator" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Invoices" name="invoices">
+                                <field name="invoice_ids" readonly="1" domain="[('move_type', '=', 'out_invoice')]">
+                                    <tree>
+                                        <field name="name" optional="show"/>
+                                        <field name="invoice_date" optional="show"/>
+                                        <field name="invoice_date_due" optional="show"/>
+                                        <field name="contract_id" optional="hide"/>
+                                        <field name="contract_line_id" optional="hide"/>
+                                        <field name="amount_untaxed_signed" optional="show"/>
+                                        <field name="amount_tax_signed" optional="show"/>
+                                        <field name="amount_total" optional="show"/>
+                                        <field name="amount_residual" optional="show"/>
+                                        <field name="move_type" optional="hide"/>
+                                        <field name="journal_id" string="Tipo documento" optional="show"/>
+                                        <field name="state" widget="badge" optional="show"/>
+                                        <!-- Decoración para el estado de pago -->
+                                        <field name="payment_state" widget="badge" optional="show"
+                                            decoration-success="payment_state == 'paid'"
+                                            decoration-danger="payment_state == 'not_paid'"
+                                            decoration-warning="payment_state == 'in_payment'"
+                                            decoration-info="payment_state == 'partial'"/>
+                                        <button
+                                            name="action_post"
+                                            string="Confirmar"
+                                            type="object"
+                                            groups="account.group_account_invoice"
+                                            invisible="state != 'draft'"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Payments" name="payment">
+                                <field name="payment_ids" readonly="1"/>
+                                    <!--<tree>
+                                        <field name="name" optional="show"/>
+                                        <field name="state" widget="badge" optional="show"/>
+                                        &lt;!&ndash;<button name="action_print_report" type="object" string="Print" class="oe_highlight" />&ndash;&gt;
+                                    </tree>-->
+                                <!--</field>-->
+                            </page>
+                            <page name="calculate_cuote_automatic" string="Calcula Cuota % Automáticamente" groups="condo.group_access_assign_cuote">
+                            <div class="oe_title">
+                                <div class="oe_row">
+                                    <h1 invisible="applied_cuote_atomatic != True">
+                                        <field name="automatic_cuote"/>
+                                    </h1>
+                                    <label for="applied_cuote_atomatic"/>
+                                    <div>
+                                        <field name="applied_cuote_atomatic"/>
+                                    </div>
+                                </div>
+                            </div>
+                            </page>
+                            <!--<page string="History" name="history">
+                                <field name="history_ids" readonly="1">
+                                    <tree>
+                                        <field name="contract_line_id" optional="show"/>
+                                        <field name="contract_id" optional="show"/>
+                                        <field name="amount_status" optional="show"/>
+                                        <field name="charge_status" widget="badge" optional="show"/>
+                                        <field name="create_date" optional="show"/>
+                                        <field name="write_date" optional="show"/>
+                                        <field name="charge_create_date" optional="show"/>
+                                    </tree>
+                                </field>
+                            </page>-->
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista de Configuración -->
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.account</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="40"/>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="inside">
+                    <div class="app_settings_block" data-string="Condo" string="Condo" data-key="condo">
+                        <h2>Settings</h2>
+                        <div class="row mt16 o_settings_container">
+                            <div class="col-12 col-lg-6 o_setting_box" title="These taxes are set in any new product created.">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Default Journal</span>
+                                    <span class="fa fa-lg fa-building-o" title="Make sure that default credit and debit account is configured on the journal" aria-label="Make sure that default credit and debit account is configured on the journal" role="img"/>
+                                    <div class="text-muted">
+                                        Default journal applied to condo payment
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="row mt16">
+                                            <label string="Default Journal" for="condo_default_journal" class="col-lg-3 o_light_label"/>
+                                            <field name="condo_default_journal" options="{'no_create': True, 'no_open': True, 'no_edit_create': True}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 o_setting_box" title="These taxes are set in any new product created.">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Default Charge Journal</span>
+                                    <span class="fa fa-lg fa-building-o" title="Make sure that default credit and debit account is configured on the journal" aria-label="Make sure that default credit and debit account is configured on the journal" role="img"/>
+                                    <div class="text-muted">
+                                        Default journal applied to Charge payment
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="row mt16">
+                                            <label string="Charge Journal" for="condo_journal" class="col-lg-3 o_light_label"/>
+                                            <field name="condo_journal" options="{'no_create': True, 'no_open': True, 'no_edit_create': True}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h2>Settings Other Account Income</h2>
+                        <div class="col-12 col-lg-6 o_setting_box" title="select the account for other income in the payment.">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Default account Other Income</span>
+                                <span class="fa fa-lg fa-building-o" title="select the account for other income in the payment" aria-label="select the account for other income in the payment." role="img"/>
+                                <div class="text-muted">
+                                    Default other account income applied to Charge payment
+                                </div>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label string="Other account income" for="account_charge" class="col-lg-3 o_light_label"/>
+                                        <field name="account_charge" options="{'no_create': True, 'no_open': True, 'no_edit_create': True}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Acciones -->
+        <record id="condo_action_window" model="ir.actions.act_window">
+            <field name="name">Contract</field>
+            <field name="res_model">condo.contract</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="condo_search_view"/>
+        </record>
+
+        <record id="condo_setting_action_window" model="ir.actions.act_window">
+            <field name="name">Settings</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field name="context">{'module': 'condo'}</field>
+        </record>
+
+        <!-- Menú -->
+        <menuitem name="Condo" id="condo_menu_root" web_icon="condo,static/description/icon.png"/>
+        <menuitem name="Condo" id="condo_menu_1" parent="condo_menu_root" sequence="1"/>
+        <menuitem name="Configuration" sequence="25" id="condo_menu_settings" parent="condo_menu_root" groups="base.group_system"/>
+        <menuitem name="Settings" id="condo_menu_settings_1" parent="condo_menu_settings" action="condo_setting_action_window" sequence="10"/>
+        <menuitem name="Condo" id="condo_menu_1_list" parent="condo_menu_1" action="condo_action_window"/>
+
+    </data>
+</odoo>
+
