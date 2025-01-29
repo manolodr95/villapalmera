@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  © 2024 ISJO TECHNOLOGY, SRL (Daniel Diaz <daniel.diaz@isjo-technology.com>)
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <data>
+
+        <record id="view_condo_contract_line_search_view" model="ir.ui.view">
+            <field name="name">view.condo.contract.line.search.view</field>
+            <field name="model">condo.contract.line</field>
+            <field name="priority" eval="15"/>
+            <field name="arch" type="xml">
+                <search string="Search Contract">
+                    <group expand="0" string="Group By">                       
+                        <filter string="Order Date" name="order_month" domain="[]" context="{'group_by': 'date'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="condo_contract_line_tree_view" model="ir.ui.view">
+            <field name="name">condo.contract.line.tree.view</field>
+            <field name="model">condo.contract.line</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="contract_id" optional="show"/>
+                    <field name="partner_id" widget="many2one_avatar" optional="hide"/>
+                    <field name="contract_state" optional="show"/>
+                    <field name="charge_line" optional="show"/>
+                    <field name="date" optional="show"/>
+                    <field name="amount_due" optional="show" sum="amount_due" />
+                    <field name="payment_id" optional="hide"/>
+                    <field name="charge_amount" optional="show" sum="charge_amount" />
+                    <field name="late_payment" optional="show" sum="late_payment" />
+                    <field name="patial_payment" sum="patial_payment" optional="show" />
+                    <field name="auto_payment" optional="show"/>
+                    <field name="left_payment" optional="hide"/>
+                    <field name="amount_subtotal" optional="show" sum="amount_subtotal"/>
+                    <field name="state" widget="badge" optional="show"/>
+                    <field name="line_paid_status" widget="boolean_toggle" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_condo_contract_line" model="ir.actions.act_window">
+            <field name="name">Contract Line</field>
+            <field name="res_model">condo.contract.line</field>
+            <field name="view_mode">tree</field>
+            <field name="target">current</field>
+            <field name="search_view_id" ref="view_condo_contract_line_search_view"/>
+             <field name="context">{'group_by': 'date','create': False}</field>
+        </record>
+
+        <menuitem name="Contract Line" 
+            id="condo_menu_2" 
+            parent="condo.condo_menu_1"
+            action="condo.action_condo_contract_line"/>
+    </data>
+</odoo>
