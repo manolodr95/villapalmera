@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  © 2024 ISJO TECHNOLOGY, SRL (Daniel Diaz <daniel.diaz@isjo-technology.com>)
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <data>
+        <!-- Herencia de la vista existente -->
+        <record id="view_account_payment_register_form_inherit_condo" model="ir.ui.view">
+            <field name="name">account.payment.register.form.inherit.condo</field>
+            <field name="model">account.payment.register</field>
+            <field name="inherit_id" ref="account.view_account_payment_register_form"/>
+            <field name="arch" type="xml">
+                <!-- Insertamos el nuevo campo condo_contract_id en el grupo adecuado -->
+                <group name="group1" position="inside">
+                    <field name="contract_id" string="Contract" options="{'no_create': True, 'no_open': True, 'no_edit_create': True}"/>
+                </group>
+            </field>
+        </record>
+    </data>
+</odoo>
