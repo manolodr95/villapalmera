@@ -184,10 +184,10 @@ class MakePayment(models.TransientModel):
                         line.late_payment -= mora_payment_amount
                 
 
-                payment_needed = line.amount_subtotal - line.patial_payment
+                payment_needed = line.amount_subtotal - mora_payment_amount #  line.patial_payment
 
-                # if payment_needed <= auto_payment:
-                if payment_needed >= auto_payment:
+                if payment_needed <= auto_payment:
+                # if payment_needed >= auto_payment:
                     # Caso de pago completo
                     line_payment = payment_needed
                     auto_payment -= line_payment
@@ -236,7 +236,9 @@ class MakePayment(models.TransientModel):
             self.condo_contract_id.cuote_completed = all_paid
 
         if not self.auto_select:
-            auto_payment = self.payment_amount
+            unique_auto_payment = auto_payment = self.payment_amount
+            mora_payment = None
+            # auto_payment = self.payment_amount
 
             for contract in self.contract_line_ids:
                 if contract.id in self.contract_line_ids.ids:
@@ -307,6 +309,8 @@ class MakePayment(models.TransientModel):
                             mora_payment = self.env['account.payment'].create(mora_payment_payload)
                             mora_payment.action_post()  # Registrar el pago de la mora
                             auto_payment -= mora_payment_amount  # Restar el monto pagado de mora del pago disponible
+                            unique_auto_payment -= mora_payment_amount  # Restar el monto pagado de mora del pago disponible
+                            # auto_payment -= mora_payment_amount  # Restar el monto pagado de mora del pago disponible
 
                             # Aplicar el pago a la factura de mora
                             mora_invoice.js_assign_outstanding_line(
@@ -339,10 +343,11 @@ class MakePayment(models.TransientModel):
 
                     for line in selected_lines:
                         # Monto necesario para completar esta línea
-                        payment_needed = line.amount_subtotal - line.patial_payment
+                        # payment_needed = line.amount_subtotal - line.patial_payment
+                        payment_needed = line.amount_subtotal - mora_payment_amount  #  line.patial_payment
 
-                        # if (payment_needed <= auto_payment or payment_needed <= (payment_amount + mora_payment_amount)) and auto_payment > 0:
-                        if (payment_needed >= auto_payment or payment_needed >= (payment_amount + mora_payment_amount)):
+                        if (payment_needed <= auto_payment or payment_needed <= (payment_amount + mora_payment_amount)) and auto_payment > 0:
+                        # if (payment_needed >= auto_payment or payment_needed >= (payment_amount + mora_payment_amount)):
                             # Caso de pago completo
                             line_payment = payment_needed
                             # auto_payment -= line_payment
