@@ -10,7 +10,7 @@ class MakePayment(models.TransientModel):
 
     auto_select = fields.Boolean(
         string="Applied unique paid",
-        default=True,
+        default=False,
         store=True
     )
 
